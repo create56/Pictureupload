@@ -1,21 +1,36 @@
 package com.cos.pic;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
+import com.cos.pic.utils.DataDownload;
 import com.cos.pic.utils.MyPath;
+import com.cos.pic.web.AirportDto;
+import com.google.gson.Gson;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class TestController {
+
+    @GetMapping("/airport")
+    public @ResponseBody AirportDto airport() {
+        try {
+            String result = DataDownload.getAirport();
+            Gson gson = new Gson();
+            AirportDto airportDto = gson.fromJson(result, AirportDto.class);
+            return airportDto;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
     @GetMapping("/")
     public @ResponseBody String home() {
