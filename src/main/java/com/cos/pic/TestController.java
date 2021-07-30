@@ -11,6 +11,7 @@ import com.cos.pic.web.AirportDto;
 import com.google.gson.Gson;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +19,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class TestController {
+
+    @CrossOrigin
+    @GetMapping("/download")
+    public String download() {
+        try {
+            Thread.sleep(2000);
+        } catch (Exception e) {
+
+        }
+        return "test2";
+    }
 
     @GetMapping("/airport")
     public @ResponseBody AirportDto airport() {
